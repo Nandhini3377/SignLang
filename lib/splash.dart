@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           Text(
             'Sign Language Translator',
-            style: TextStyle(fontSize: 25, color: Colors.black),
+            style: TextStyle(fontSize: 27, color: Colors.black),
           ),
           Container(
             child: Image.asset('assets/sign.jpg'),

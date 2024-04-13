@@ -4,7 +4,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:sl/camera.dart';
 import 'package:tflite/tflite.dart';
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
   @override
@@ -30,23 +29,29 @@ class _MyHomePageState extends State<MyHomePage> {
 //     });
 //   }
 // void speakText(String text) async {
- 
+
 //   await flutterTts.speak(text);
 // }
 
-// void stopSpeaking() async { 
+// void stopSpeaking() async {
 //   await flutterTts.stop();
 // }
-
-@override
+  late CameraController cameraController;
+  late List<CameraDescription> cameras;
+  @override
   void initState() {
     super.initState();
-    
-    _load();
+    //_initializeCamera();
+  }
+
+  Future<void> _initializeCamera() async {
+    cameras = await availableCameras();
+    cameraController = CameraController(cameras[0], ResolutionPreset.medium);
+    await cameraController.initialize();
+    setState(() {});
   }
 
   void _load() async {
-
     if (mounted) {
       setState(() {});
     }
@@ -54,9 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
       model: 'assets/model_unquant.tflite',
       labels: 'assets/labels.txt',
     );
-    
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,35 +68,52 @@ class _MyHomePageState extends State<MyHomePage> {
       //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       //   title: Text('Sign Language Translator'),
       // ),
-      body: Column(
-     crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // SizedBox(height: 180,),
-           Padding(
-             padding: const EdgeInsets.symmetric(horizontal:30.0),
-             child: Text('Sign Language Translator', style: TextStyle(fontSize:27, color: Colors.black),),
-           ),
-           SizedBox(height: 80,),
-          Container(
-            width: MediaQuery.of(context).size.width*0.5,
-            child: Icon(Icons.translate,size: 100,)
-          ),
-SizedBox(height: 80,),
-          Container(
-            width: 140,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink.shade300),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CameraScreen()));
-                },
-                child: Text(
-                  "Translate",
-                  style: TextStyle(color: Colors.white),
-                ))),
-        ],
+      body: Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // SizedBox(height: 180,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Translating silence into understanding',
+                style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: Image.asset('assets/signl.jpg')),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+                width: 160,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        side: BorderSide(color: Colors.blue.shade800),
+                        backgroundColor: Colors.white),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CameraScreen()));
+                    },
+                    child: Text(
+                      "Translate",
+                      style: TextStyle(color: Colors.black),
+                    ))),
+          ],
+        ),
       ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed:()async {
@@ -100,7 +121,7 @@ SizedBox(height: 80,),
       //     _incrementCounter(_txt.text);
       //     speakText(_txt.text);
       //   },
-        
+
       //   child: const Icon(Icons.speaker),
       // ), // This trailing comma makes auto-formatting nicer for build methods.
     );

@@ -1,4 +1,5 @@
-0 A
-1 B
-2 C
-3 D
+0 Hello
+1 Bye
+2 Goodluck
+3 Welcome
+4 Call
