@@ -1,5 +1,7 @@
 0 Hello
 1 Bye
-2 Goodluck
-3 Welcome
-4 Call
+2 Call
+3 Correct
+4 GoodLuck
+5 Welcome
+6 Help

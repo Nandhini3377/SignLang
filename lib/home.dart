@@ -11,63 +11,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-//   String word = "";
-//   final TextEditingController _txt=TextEditingController();
-//   FlutterTts flutterTts = FlutterTts();
-
-// Future<void> configureTts() async {
-//   await flutterTts.setLanguage('en-IN');
-//   await flutterTts.setVoice({"name": "Microsoft Heera - English (India)", "locale":" en-IN"});
-//   var v=await flutterTts.getVoices;
-//   print(v);
-//   await flutterTts.setSpeechRate(0.5);
-//   await flutterTts.setVolume(1.0);
-// }
-//   void _incrementCounter(value) {
-//     setState(() {
-//      word=value;
-//     });
-//   }
-// void speakText(String text) async {
-
-//   await flutterTts.speak(text);
-// }
-
-// void stopSpeaking() async {
-//   await flutterTts.stop();
-// }
   late CameraController cameraController;
   late List<CameraDescription> cameras;
-  @override
-  void initState() {
-    super.initState();
-    //_initializeCamera();
-  }
-
-  Future<void> _initializeCamera() async {
-    cameras = await availableCameras();
-    cameraController = CameraController(cameras[0], ResolutionPreset.medium);
-    await cameraController.initialize();
-    setState(() {});
-  }
-
-  void _load() async {
-    if (mounted) {
-      setState(() {});
-    }
-    await Tflite.loadModel(
-      model: 'assets/model_unquant.tflite',
-      labels: 'assets/labels.txt',
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   title: Text('Sign Language Translator'),
-      // ),
       body: Container(
         color: Colors.white,
         height: MediaQuery.of(context).size.height,
@@ -76,7 +25,6 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // SizedBox(height: 180,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
@@ -115,15 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed:()async {
-      //     await configureTts();
-      //     _incrementCounter(_txt.text);
-      //     speakText(_txt.text);
-      //   },
-
-      //   child: const Icon(Icons.speaker),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

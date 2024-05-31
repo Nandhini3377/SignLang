@@ -19,9 +19,10 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void initState() {
-    super.initState();
-    _initializeCamera();
+     _initializeCamera();
     _initializeTflite();
+    super.initState();
+   
     flutterTts = FlutterTts();
   }
 
@@ -35,7 +36,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _initializeTflite() async {
     await Tflite.loadModel(
       model: 'assets/model_unquant.tflite',
-      labels: 'assets/labels.txt',
+      labels: 'assets/labels.txt'
     );
   }
 
